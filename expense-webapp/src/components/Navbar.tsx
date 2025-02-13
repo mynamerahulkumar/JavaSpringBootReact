@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaBars } from 'react-icons/fa'
 import Logo from './Logo'
+import { NavLink } from 'react-router-dom'
 const Navbar = () => {
   return (
      <nav className="navbar navbar-expand-lg">
@@ -9,14 +10,14 @@ const Navbar = () => {
  <Logo/>
   <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div className="navbar-nav">
-      <a className="nav-item nav-link active" href="#">Home <span className="sr-only">(current)</span></a>
-      <a className="nav-item nav-link" href="#">Features</a>
-      <a className="nav-item nav-link" href="#">Pricing</a>
+      <NavLink className="nav-link" to="/">Dashboard </NavLink>
+      <NavLink className="nav-link" to="/newexpense">New Expense</NavLink>
+      <NavLink className="nav-link" to="/expensereport">Reports</NavLink>
     </div>
   </div>
   <div className='d-flex' role='search'>
-    <button className='btn btn-sm btn-outline-light'>Login</button>
-    <button className='btn btn-sm btn-outline-light mx-1'>Logout</button>
+    <NavLink className='btn btn-sm btn-outline-light' to="/login">Login</NavLink>
+    <NavLink className='btn btn-sm btn-outline-light mx-1' to="/register">Register</NavLink>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <FaBars color='white'/>
   </button>
