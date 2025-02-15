@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -43,6 +44,12 @@ public class ExpenseController {
       List<ExpenseResponse>  responses= expenseDTOList.stream().map(expenseDTO -> mapToExpenseResponse(expenseDTO)).collect(Collectors.toList());
         //return the list/response
         return  responses;
+    }
+    @GetMapping("/expense/{expenseId}")
+    public ExpenseResponse getExpense(@PathVariable String expenseId){
+        log.info(" Expense id {}",expenseId);
+        ExpenseDTO expenseDTO=expenseService.getExpenseById(expenseId);
+        return mapToExpenseResponse(expenseDTO);
     }
 
     /**
