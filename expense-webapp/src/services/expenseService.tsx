@@ -10,3 +10,7 @@ export const getExpenseByExepenseId=(expenseId:string)=>{
     return apiClient.get<Expense>(`/expense/${expenseId}`);
 
 }
+
+export const deleteByExepenseId=(expenseId:string)=>{
+    return apiClient.delete<void>(`/expense/${expenseId}`)
+}

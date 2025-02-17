@@ -49,6 +49,17 @@ public class ExpenseServiceImpl  implements  ExpenseService{
     }
 
     /**
+     * delete by expense id
+     * @param expenseId
+     */
+    @Override
+    public void deleteByExpenseId(String expenseId) {
+        ExpenseEntity expenseEntity=expenseRepository.findByExpenseId(expenseId)
+                .orElseThrow(()->new ResourceNotFoundException("ExpenseId not present"));
+        expenseRepository.delete(expenseEntity);
+    }
+
+    /**
      *
      * @param expeseEntity
      * @return
