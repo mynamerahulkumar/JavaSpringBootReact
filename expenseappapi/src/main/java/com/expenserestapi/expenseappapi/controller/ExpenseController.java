@@ -1,8 +1,11 @@
 package com.expenserestapi.expenseappapi.controller;
 
 import com.expenserestapi.expenseappapi.dto.ExpenseDTO;
+import com.expenserestapi.expenseappapi.entity.ExpenseEntity;
+import com.expenserestapi.expenseappapi.io.ExpenseRequest;
 import com.expenserestapi.expenseappapi.io.ExpenseResponse;
 import com.expenserestapi.expenseappapi.service.ExpenseService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -57,6 +60,33 @@ public class ExpenseController {
      */
     private   ExpenseResponse mapToExpenseResponse(ExpenseDTO expenseDTO){
         return  modelMapper.map(expenseDTO,ExpenseResponse.class);
+    }
+
+    /**
+     * create new expense and add in db
+     * @param expenseRequest
+     * @return
+     */
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/expenses")
+    private ExpenseRequest saveExpenseDetails(@Valid  @RequestBody ExpenseRequest expenseRequest){
+        log.info("API POST /expenses called{}",expenseRequest);
+        ExpenseDTO expenseDTO=mapToExpenseDTO(expenseRequest);
+       expenseDTO= expenseService.saveExpenseDetails(expenseDTO);
+        expenseRequest=mapToExpenseRequest(expenseDTO);
+        return  expenseRequest;
+    }
+
+    /**
+     * map to expensedto
+     * @param expenseRequest
+     * @return
+     */
+    private  ExpenseDTO mapToExpenseDTO(ExpenseRequest expenseRequest){
+        return  modelMapper.map(expenseRequest,ExpenseDTO.class);
+    }
+    private ExpenseRequest mapToExpenseRequest(ExpenseDTO expenseDTO){
+        return  modelMapper.map(expenseDTO,ExpenseRequest.class);
     }
 
     /**

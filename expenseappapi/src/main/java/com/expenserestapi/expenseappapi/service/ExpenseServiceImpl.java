@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor// it will create constructor of repo and model
@@ -59,6 +60,24 @@ public class ExpenseServiceImpl  implements  ExpenseService{
         expenseRepository.delete(expenseEntity);
     }
 
+    /**
+     * Save expense details to db
+     * @param expenseDTO
+     * @return
+     */
+
+    @Override
+    public ExpenseDTO saveExpenseDetails(ExpenseDTO expenseDTO) {
+         ExpenseEntity newExpenseEntity=mapExpenseDTO(expenseDTO);
+         newExpenseEntity.setExpenseId(UUID.randomUUID().toString());
+          newExpenseEntity=expenseRepository.save(newExpenseEntity);
+          expenseDTO=mapExpenseDTO(newExpenseEntity);
+          return expenseDTO;
+    }
+
+    private ExpenseEntity mapExpenseDTO(ExpenseDTO expenseDTO){
+        return modelMapper.map(expenseDTO,ExpenseEntity.class);
+    }
     /**
      *
      * @param expeseEntity
