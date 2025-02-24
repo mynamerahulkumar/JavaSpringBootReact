@@ -14,13 +14,13 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 @Service
-@RequiredArgsConstructor// it will create constructor of repo and model
+//@RequiredArgsConstructor// it will create constructor of repo and model
 @Slf4j
 public class ExpenseServiceImpl  implements  ExpenseService{
 
-    private final ExpenseRepository expenseRepository;
+    private  ExpenseRepository expenseRepository;
 
-    private  final ModelMapper modelMapper;
+    private   ModelMapper modelMapper;
 
     /**
      *
